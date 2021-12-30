@@ -18,6 +18,7 @@ class RabbitMqDelayPluginDelayStrategy implements DelayStrategy
     {
         $delayMessage = $context->createMessage($message->getBody(), $message->getProperties(), $message->getHeaders());
         $delayMessage->setProperty('x-delay', (int) $delay);
+        $delayMessage->setHeader('x-delay', $delay);
         $delayMessage->setRoutingKey($message->getRoutingKey());
 
         if ($dest instanceof AmqpTopic) {
